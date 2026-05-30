@@ -41,7 +41,7 @@ export default function Hero() {
 
       <div className="w-[92%] max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
         {/* Left Side: Copywriting */}
-        <motion.div 
+        <motion.div
           className="lg:col-span-7 text-left"
           variants={containerVariants}
           initial="hidden"
@@ -54,8 +54,8 @@ export default function Hero() {
           </motion.div>
 
           {/* Heading */}
-          <motion.h1 
-            variants={itemVariants} 
+          <motion.h1
+            variants={itemVariants}
             className="font-display font-extrabold text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-tight tracking-tight mb-6"
           >
             Your AI Big Sister,{' '}
@@ -65,37 +65,37 @@ export default function Hero() {
           </motion.h1>
 
           {/* Subheading */}
-          <motion.p 
-            variants={itemVariants} 
+          <motion.p
+            variants={itemVariants}
             className="font-sans text-lg md:text-xl text-slate-600 dark:text-slate-300 leading-relaxed mb-8 max-w-2xl"
           >
             Ask anything about life, career, wellness, relationships, safety, or your future. Didi is here to listen, support, and guide you with love and zero judgment.
           </motion.p>
 
           {/* Action Buttons */}
-          <motion.div 
-            variants={itemVariants} 
+          <motion.div
+            variants={itemVariants}
             className="flex flex-col sm:flex-row gap-4 items-stretch sm:items-center"
           >
             <a
-              href="#demo"
+              href="#didi-hub"
               className="group relative inline-flex items-center justify-center px-8 py-4 font-semibold text-white rounded-2xl bg-gradient-to-r from-pink-500 via-rose-400 to-purple-600 hover:from-pink-600 hover:via-rose-500 hover:to-purple-700 transition-all duration-300 shadow-lg shadow-pink-500/25 hover:shadow-xl hover:shadow-pink-500/35 hover:scale-[1.02] cursor-pointer"
             >
-              <span>Talk to Didi</span>
+              <span>Explore Didi Hub</span>
               <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
             </a>
 
             <a
-              href="#how-it-works"
+              href="#demo"
               className="inline-flex items-center justify-center px-8 py-4 font-semibold text-slate-700 dark:text-slate-200 bg-white/40 dark:bg-didi-card-dark/45 border border-slate-200 dark:border-white/10 rounded-2xl backdrop-blur-md hover:bg-white/80 dark:hover:bg-didi-card-dark/80 transition-all cursor-pointer"
             >
-              See How It Works
+              Talk to Didi
             </a>
           </motion.div>
 
           {/* Trust points */}
-          <motion.div 
-            variants={itemVariants} 
+          <motion.div
+            variants={itemVariants}
             className="grid grid-cols-3 gap-4 pt-10 mt-10 border-t border-slate-200/50 dark:border-white/5"
           >
             <div className="flex items-center gap-2">
@@ -114,7 +114,7 @@ export default function Hero() {
         </motion.div>
 
         {/* Right Side: Interactive Orb & Mockup */}
-        <motion.div 
+        <motion.div
           className="lg:col-span-5 relative flex justify-center items-center py-10 lg:py-0"
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -128,7 +128,7 @@ export default function Hero() {
             <motion.div
               key={idx}
               className={`absolute z-20 ${badge.position} px-4 py-2 rounded-full glass-panel-heavy shadow-md text-xs font-semibold text-purple-950 dark:text-purple-100 border-white/50 cursor-default`}
-              animate={{ 
+              animate={{
                 y: [0, -10, 0],
                 rotate: [0, idx % 2 === 0 ? 2 : -2, 0]
               }}

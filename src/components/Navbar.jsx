@@ -3,9 +3,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Sun, Moon, LogOut, ChevronDown } from 'lucide-react';
 
 const NAV_LINKS = [
+  { name: '✨ Hub', href: '#didi-hub' },
   { name: '💬 Chat', href: '#demo' },
-  { name: '🌸 Didi Modes', href: '#didi-modes' },
-  { name: '🛡️ SOS Help', href: '#sos' },
+  { name: '🌸 Modes', href: '#didi-modes' },
+  { name: '🛡️ SOS', href: '#sos' },
   { name: '🌱 Growth', href: '#growth' },
   { name: '🔒 Privacy', href: '#privacy' },
 ];
@@ -24,11 +25,10 @@ export default function Navbar({ darkMode, setDarkMode, user, onLogout }) {
   const initial = user ? user.charAt(0).toUpperCase() : 'G';
 
   return (
-    <nav className={`fixed top-3 left-1/2 -translate-x-1/2 w-[94%] max-w-7xl z-50 transition-all duration-300 rounded-2xl ${
-      scrolled
+    <nav className={`fixed top-3 left-1/2 -translate-x-1/2 w-[94%] max-w-7xl z-50 transition-all duration-300 rounded-2xl ${scrolled
         ? 'glass-panel-heavy shadow-[0_8px_30px_rgba(244,114,182,0.12)] py-2'
         : 'bg-white/30 dark:bg-white/5 backdrop-blur-md py-3'
-    }`}>
+      }`}>
       <div className="px-5 flex items-center justify-between">
 
         {/* Logo */}

@@ -18,6 +18,17 @@ import FutureVision from './components/FutureVision';
 import FloatingChat from './components/FloatingChat';
 import Footer from './components/Footer';
 import AppModals from './components/AppModals';
+import DidiHub from './components/DidiHub';
+import ChatModePage from './components/modes/ChatModePage';
+import DiaryPage from './components/modes/DiaryPage';
+import MoodPage from './components/modes/MoodPage';
+import GoalsPage from './components/modes/GoalsPage';
+import ResumePage from './components/modes/ResumePage';
+import FutureMePage from './components/modes/FutureMePage';
+import CheckInPage from './components/modes/CheckInPage';
+import AchievementsPage from './components/modes/AchievementsPage';
+import CommunityPage from './components/modes/CommunityPage';
+import useHashRoute from './lib/useHashRoute';
 import { UIProvider } from './context/UIContext';
 import { isFirebaseConfigured, signOut as fbSignOut, watchAuth } from './lib/firebase';
 
@@ -77,6 +88,9 @@ export default function App() {
     setUser(null);
     setAppState('login');
   };
+
+  // Hash router — when set, we render a feature page instead of the landing.
+  const route = useHashRoute();
 
   const lightBg = 'from-[#fff7fb] via-[#fdf4ff] to-[#f7f2ff]';
   const darkBg = 'from-[#120417] via-[#1e0a29] to-[#0b020e]';
@@ -143,17 +157,7 @@ export default function App() {
 
             {/* Main content */}
             <main>
-              <Hero user={user} />
-              <ChatDemo />
-              <DidiModes />
-              <SOSGuidance />
-              <WeeklyGrowth />
-              <Features />
-              <HowItWorks />
-              <EmotionalSupport />
-              <Testimonials />
-              <SafetyPrivacy />
-              <FutureVision />
+              {renderRoute(route)}
             </main>
 
             <Footer />
@@ -164,6 +168,53 @@ export default function App() {
 
       <AppModals />
     </UIProvider>
+  );
+}
+
+// Renders either the full landing page or a routed feature page.
+function renderRoute(route) {
+  // Landing
+  if (!route) {
+    return (
+      <>
+        <Hero />
+        <DidiHub />
+        <ChatDemo />
+        <DidiModes />
+        <SOSGuidance />
+        <WeeklyGrowth />
+        <Features />
+        <HowItWorks />
+        <EmotionalSupport />
+        <Testimonials />
+        <SafetyPrivacy />
+        <FutureVision />
+      </>
+    );
+  }
+
+  // Chat-style modes: /chat/<modeKey>
+  if (route.startsWith('/chat/')) {
+    const modeKey = route.slice('/chat/'.length) || 'default';
+    return <ChatModePage modeKey={modeKey} />;
+  }
+
+  // Page-style modes
+  if (route === '/diary') return <DiaryPage />;
+  if (route === '/mood') return <MoodPage />;
+  if (route === '/goals') return <GoalsPage />;
+  if (route === '/resume') return <ResumePage />;
+  if (route === '/futureMe') return <FutureMePage />;
+  if (route === '/checkin') return <CheckInPage />;
+  if (route === '/achievements') return <AchievementsPage />;
+  if (route === '/community') return <CommunityPage />;
+
+  // Unknown route → fallback to landing
+  return (
+    <div className="min-h-screen pt-32 text-center">
+      <h2 className="font-display text-2xl">Page not found 🌸</h2>
+      <a href="#" className="text-pink-500 underline">Back home</a>
+    </div>
   );
 }
 

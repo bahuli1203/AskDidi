@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 @theme {
   --font-sans: 'Inter', system-ui, sans-serif;
@@ -20,7 +21,7 @@
   --color-didi-indigo-dark: #3730a3;
   --color-didi-bg-dark: #120417;
   --color-didi-card-dark: #1e0926;
-  
+
   --animate-orb-pulse: orb-pulse 10s ease-in-out infinite;
   --animate-orb-pulse-fast: orb-pulse 4s ease-in-out infinite;
   --animate-orb-pulse-slow: orb-pulse 16s ease-in-out infinite;
@@ -30,40 +31,56 @@
   --animate-pulse-glow: pulse-glow 3s ease-in-out infinite;
 
   @keyframes orb-pulse {
-    0%, 100% {
+
+    0%,
+    100% {
       transform: scale(1) translate(0px, 0px);
       filter: blur(40px);
     }
+
     33% {
       transform: scale(1.15) translate(15px, -20px);
       filter: blur(55px);
     }
+
     66% {
       transform: scale(0.85) translate(-15px, 15px);
       filter: blur(30px);
     }
   }
+
   @keyframes float {
-    0%, 100% {
+
+    0%,
+    100% {
       transform: translateY(0px) rotate(0deg);
     }
+
     50% {
       transform: translateY(-12px) rotate(1.5deg);
     }
   }
+
   @keyframes float-slow {
-    0%, 100% {
+
+    0%,
+    100% {
       transform: translateY(0px) rotate(0deg);
     }
+
     50% {
       transform: translateY(-20px) rotate(-2deg);
     }
   }
+
   @keyframes pulse-glow {
-    0%, 100% {
+
+    0%,
+    100% {
       opacity: 0.3;
       filter: drop-shadow(0 0 15px rgba(139, 92, 246, 0.4));
     }
+
     50% {
       opacity: 0.6;
       filter: drop-shadow(0 0 25px rgba(244, 114, 182, 0.6));
@@ -239,12 +256,15 @@ body {
     transform: translateX(0) rotate(0deg) scale(0.8);
     opacity: 0;
   }
+
   10% {
     opacity: 0.55;
   }
+
   85% {
     opacity: 0.5;
   }
+
   100% {
     top: 110%;
     transform: translateX(150px) rotate(450deg) scale(0.4);
@@ -389,4 +409,3 @@ body {
 .light [class*="dark:bg-didi-card-dark"] {
   background: rgba(255, 255, 255, 0.9) !important;
 }
-

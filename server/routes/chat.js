@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { DIDI_SYSTEM_PROMPT } from '../lib/didiPrompt.js';
+import { getModePrompt } from '../lib/modePrompts.js';
 import { heuristicReply, heuristicEmotion, emotionToMood } from '../lib/fallbacks.js';
 
 const router = Router();
@@ -8,26 +8,25 @@ const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
 
 router.post('/', async (req, res, next) => {
     try {
-        const { message, history = [] } = req.body || {};
+        const { message, history = [], mode = 'default', maxTokens } = req.body || {};
         if (!message || typeof message !== 'string') {
             return res.status(400).json({ error: 'message (string) is required' });
         }
 
-        // Lightweight, instant emotion guess used to drive the orb mood.
         const localEmotion = heuristicEmotion(message);
-        const mood = emotionToMood(localEmotion.top.label);
+        const orbMood = emotionToMood(localEmotion.top.label);
 
         if (!process.env.GROQ_API_KEY) {
             return res.json({
                 reply: heuristicReply(message),
-                mood,
+                mood: orbMood,
                 emotion: localEmotion.top,
                 source: 'fallback',
             });
         }
 
         const messages = [
-            { role: 'system', content: DIDI_SYSTEM_PROMPT },
+            { role: 'system', content: getModePrompt(mode) },
             ...history
                 .filter((m) => m && (m.role === 'user' || m.role === 'assistant') && typeof m.content === 'string')
                 .slice(-12),
@@ -43,8 +42,8 @@ router.post('/', async (req, res, next) => {
             body: JSON.stringify({
                 model: process.env.GROQ_MODEL || 'llama-3.3-70b-versatile',
                 messages,
-                temperature: 0.8,
-                max_tokens: 500,
+                temperature: mode === 'resume' || mode === 'money' ? 0.5 : 0.8,
+                max_tokens: typeof maxTokens === 'number' ? Math.min(maxTokens, 2000) : 700,
             }),
         });
 
@@ -53,7 +52,7 @@ router.post('/', async (req, res, next) => {
             console.warn('[chat] Groq error', groqResp.status, errText);
             return res.json({
                 reply: heuristicReply(message),
-                mood,
+                mood: orbMood,
                 emotion: localEmotion.top,
                 source: 'fallback',
                 upstreamStatus: groqResp.status,
@@ -65,8 +64,9 @@ router.post('/', async (req, res, next) => {
 
         res.json({
             reply,
-            mood,
+            mood: orbMood,
             emotion: localEmotion.top,
+            mode,
             source: 'groq',
             model: data?.model,
         });
