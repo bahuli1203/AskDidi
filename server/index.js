@@ -32,6 +32,29 @@ app.use(cors({
 }));
 app.use(express.json({ limit: '2mb' }));
 
+app.get('/', (_req, res) => {
+    res.type('html').send(`<!doctype html>
+<html><head><meta charset="utf-8"><title>Ask Didi API 🌸</title>
+<style>
+  body { font-family: system-ui, -apple-system, sans-serif; padding: 3rem; max-width: 640px; margin: 0 auto; background: linear-gradient(135deg, #fff7fb, #fdf4ff); color: #1e1b2e; }
+  h1 { font-size: 2rem; margin: 0 0 .5rem; }
+  code { background: #fce7f3; padding: 2px 6px; border-radius: 4px; font-size: .85rem; }
+  ul { line-height: 1.9; }
+  a { color: #ec4899; }
+</style></head><body>
+  <h1>🌸 Ask Didi API</h1>
+  <p>This is the backend service for the Ask Didi app. The website itself lives elsewhere.</p>
+  <h3>Available endpoints</h3>
+  <ul>
+    <li><a href="/api/health">GET /api/health</a> — service status</li>
+    <li><code>POST /api/chat</code> — Groq-powered chat</li>
+    <li><code>POST /api/voice/transcribe</code> — Whisper transcription</li>
+    <li><code>POST /api/emotion</code> — Hugging Face emotion detection</li>
+  </ul>
+  <p style="margin-top: 2rem; opacity: .6; font-size: .85rem;">Repo: <a href="https://github.com/bahuli1203/AskDidi">github.com/bahuli1203/AskDidi</a></p>
+</body></html>`);
+});
+
 app.get('/api/health', (_req, res) => {
     res.json({
         ok: true,
