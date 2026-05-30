@@ -1,0 +1,392 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-display: 'Outfit', sans-serif;
+  --font-serif: 'Playfair Display', Georgia, serif;
+
+  --color-didi-lavender-light: #f5f3ff;
+  --color-didi-lavender: #e0d8f0;
+  --color-didi-lavender-dark: #b8a6d9;
+  --color-didi-pink-light: #fff1f2;
+  --color-didi-pink: #fbcfe8;
+  --color-didi-pink-dark: #f472b6;
+  --color-didi-peach: #ffedd5;
+  --color-didi-purple-light: #c084fc;
+  --color-didi-purple: #8b5cf6;
+  --color-didi-purple-dark: #6d28d9;
+  --color-didi-indigo: #4f46e5;
+  --color-didi-indigo-dark: #3730a3;
+  --color-didi-bg-dark: #120417;
+  --color-didi-card-dark: #1e0926;
+  
+  --animate-orb-pulse: orb-pulse 10s ease-in-out infinite;
+  --animate-orb-pulse-fast: orb-pulse 4s ease-in-out infinite;
+  --animate-orb-pulse-slow: orb-pulse 16s ease-in-out infinite;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-float-slow: float 9s ease-in-out infinite;
+  --animate-float-fast: float 3s ease-in-out infinite;
+  --animate-pulse-glow: pulse-glow 3s ease-in-out infinite;
+
+  @keyframes orb-pulse {
+    0%, 100% {
+      transform: scale(1) translate(0px, 0px);
+      filter: blur(40px);
+    }
+    33% {
+      transform: scale(1.15) translate(15px, -20px);
+      filter: blur(55px);
+    }
+    66% {
+      transform: scale(0.85) translate(-15px, 15px);
+      filter: blur(30px);
+    }
+  }
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+      transform: translateY(-12px) rotate(1.5deg);
+    }
+  }
+  @keyframes float-slow {
+    0%, 100% {
+      transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+      transform: translateY(-20px) rotate(-2deg);
+    }
+  }
+  @keyframes pulse-glow {
+    0%, 100% {
+      opacity: 0.3;
+      filter: drop-shadow(0 0 15px rgba(139, 92, 246, 0.4));
+    }
+    50% {
+      opacity: 0.6;
+      filter: drop-shadow(0 0 25px rgba(244, 114, 182, 0.6));
+    }
+  }
+}
+
+/* Custom Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(244, 114, 182, 0.25);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(244, 114, 182, 0.45);
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ============================================================
+   FIXED NAVBAR OFFSET FIX
+   Prevents sections from hiding under the fixed navbar
+   when scrolled to via anchor links
+   ============================================================ */
+section,
+footer,
+[id] {
+  scroll-margin-top: 80px;
+}
+
+body {
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+/* ============================================================
+   LIGHT MODE BASE — Warm feminine pinks & lavender
+   ============================================================ */
+
+/* Light mode body background */
+:root:not(.dark) body,
+.light body {
+  background: linear-gradient(135deg, #fff7fb 0%, #fdf4ff 40%, #fff1f8 70%, #f7f2ff 100%);
+  color: #1e1b2e;
+}
+
+/* ============================================================
+   GLASSMORPHISM — Light & Dark variants
+   ============================================================ */
+
+/* Light mode glass */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(244, 114, 182, 0.18);
+}
+
+/* Dark mode glass */
+.dark .glass-panel {
+  background: rgba(18, 4, 23, 0.58);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Light mode heavy glass */
+.glass-panel-heavy {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border: 1px solid rgba(244, 114, 182, 0.22);
+  box-shadow: 0 4px 24px rgba(244, 114, 182, 0.08);
+}
+
+/* Dark mode heavy glass */
+.dark .glass-panel-heavy {
+  background: rgba(18, 4, 23, 0.88);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* ============================================================
+   LIGHT MODE CARD & SECTION BACKGROUNDS
+   ============================================================ */
+
+/* Light mode default section bg for alternating sections */
+:root:not(.dark) .section-alt,
+.light .section-alt {
+  background: linear-gradient(180deg, #fdf2f8 0%, #faf5ff 100%);
+}
+
+/* ============================================================
+   GLOW EFFECTS
+   ============================================================ */
+
+.glow-primary {
+  filter: drop-shadow(0 0 15px rgba(139, 92, 246, 0.3));
+}
+
+.glow-secondary {
+  filter: drop-shadow(0 0 15px rgba(244, 114, 182, 0.3));
+}
+
+/* ============================================================
+   NOISE TEXTURE OVERLAY
+   ============================================================ */
+
+.bg-noise {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.015'/%3E%3C/svg%3E");
+}
+
+.dark .bg-noise {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+}
+
+/* ============================================================
+   WAVE ANIMATION (Heartbeat graphic)
+   ============================================================ */
+
+.wave-path {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: dash 5s linear infinite;
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ============================================================
+   FALLING CHERRY BLOSSOM PETALS
+   ============================================================ */
+
+.petal {
+  position: absolute;
+  background: linear-gradient(135deg, #ffd3e0, #ffaec1);
+  border-radius: 125% 0 125% 125%;
+  pointer-events: none;
+  animation: fall linear infinite;
+  z-index: 0;
+}
+
+/* Lighter petals in light mode */
+:root:not(.dark) .petal,
+.light .petal {
+  opacity: 0.45;
+}
+
+.dark .petal {
+  opacity: 0.6;
+}
+
+@keyframes fall {
+  0% {
+    top: -10%;
+    transform: translateX(0) rotate(0deg) scale(0.8);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.55;
+  }
+  85% {
+    opacity: 0.5;
+  }
+  100% {
+    top: 110%;
+    transform: translateX(150px) rotate(450deg) scale(0.4);
+    opacity: 0;
+  }
+}
+
+/* ============================================================
+   LIGHT MODE SPECIFIC TEXT FIXES
+   ============================================================ */
+
+/* Ensure proper text contrast in light mode for elements with dark: prefix overrides */
+:root:not(.dark) .text-slate-800,
+.light .text-slate-800 {
+  color: #1e1b2e;
+}
+
+:root:not(.dark) .text-slate-600,
+.light .text-slate-600 {
+  color: #475569;
+}
+
+/* Range input accent in light mode */
+:root:not(.dark) input[type='range'],
+.light input[type='range'] {
+  accent-color: #ec4899;
+}
+
+/* Form input light mode */
+:root:not(.dark) input[type='email'],
+:root:not(.dark) input[type='text'],
+.light input[type='email'],
+.light input[type='text'] {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(244, 114, 182, 0.3);
+  color: #1e1b2e;
+}
+
+/* ============================================================
+   SECTION ALT BACKGROUNDS FOR LIGHT MODE
+   ============================================================ */
+
+/* Sections that have bg-slate-50 in light — replace with warm pink-tinted */
+:root:not(.dark) section,
+.light section {
+  background: transparent;
+}
+
+/* Card backgrounds in light mode (replaces dark:bg-didi-card-dark) */
+:root:not(.dark) .bg-didi-card-dark,
+.light .bg-didi-card-dark {
+  background: rgba(255, 255, 255, 0.85) !important;
+}
+
+/* ============================================================
+   PROGRESS / STRESS SLIDER - LIGHT MODE
+   ============================================================ */
+
+:root:not(.dark) .slider-track,
+.light .slider-track {
+  background: linear-gradient(to right, #fce7f3, #fbcfe8);
+}
+
+/* ============================================================
+   CUSTOM UTILITY — Pink card background
+   ============================================================ */
+
+.card-light {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(251, 207, 232, 0.5);
+}
+
+.dark .card-light {
+  background: rgba(18, 4, 23, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ============================================================
+   GLOBAL LIGHT MODE TEXT CONTRAST FIXES
+   Tailwind dark: variants don't auto-apply in light mode,
+   so we explicitly ensure readable defaults below.
+   ============================================================ */
+
+/* Headings — always dark in light mode */
+:root:not(.dark) h1,
+:root:not(.dark) h2,
+:root:not(.dark) h3,
+:root:not(.dark) h4,
+.light h1,
+.light h2,
+.light h3,
+.light h4 {
+  color: #1e1b2e;
+}
+
+/* Body text — readable grey in light mode */
+:root:not(.dark) p,
+.light p {
+  color: #475569;
+}
+
+/* Strong/bold in light mode */
+:root:not(.dark) strong,
+.light strong {
+  color: #1e1b2e;
+}
+
+/* Elements that use dark:text-white but need slate in light */
+:root:not(.dark) .dark\:text-white,
+.light .dark\:text-white {
+  color: #1e293b !important;
+}
+
+/* Slate-400 text is too light on white — bump to 600 in light mode */
+:root:not(.dark) .text-slate-400,
+.light .text-slate-400 {
+  color: #64748b;
+}
+
+/* Fix dark:text-slate-300 in light mode */
+:root:not(.dark) .dark\:text-slate-300,
+.light .dark\:text-slate-300 {
+  color: #475569 !important;
+}
+
+/* Fix dark:text-slate-400 in light mode */
+:root:not(.dark) .dark\:text-slate-400,
+.light .dark\:text-slate-400 {
+  color: #64748b !important;
+}
+
+/* Fix dark:text-slate-200 in light mode */
+:root:not(.dark) .dark\:text-slate-200,
+.light .dark\:text-slate-200 {
+  color: #334155 !important;
+}
+
+/* didi-card-dark in light mode = white card */
+:root:not(.dark) .bg-didi-card-dark,
+:root:not(.dark) [class*="dark:bg-didi-card-dark"],
+.light .bg-didi-card-dark,
+.light [class*="dark:bg-didi-card-dark"] {
+  background: rgba(255, 255, 255, 0.9) !important;
+}
+
