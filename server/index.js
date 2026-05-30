@@ -8,9 +8,28 @@ import emotionRouter from './routes/emotion.js';
 
 const app = express();
 const PORT = process.env.PORT || 5050;
-const ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN || 'http://localhost:5173';
+// Comma-separated list of allowed origins. Default to localhost for dev.
+const ALLOWED_ORIGINS = (process.env.ALLOWED_ORIGIN || 'http://localhost:5173')
+    .split(',')
+    .map((s) => s.trim())
+    .filter(Boolean);
 
-app.use(cors({ origin: ALLOWED_ORIGIN, credentials: false }));
+app.use(cors({
+    origin(origin, cb) {
+        // Allow same-origin (no Origin header) and exact matches.
+        if (!origin || ALLOWED_ORIGINS.includes(origin) || ALLOWED_ORIGINS.includes('*')) {
+            return cb(null, true);
+        }
+        // Allow any *.vercel.app preview if we explicitly opt-in via "https://*.vercel.app".
+        const wildcard = ALLOWED_ORIGINS.find((o) => o.startsWith('https://*.'));
+        if (wildcard) {
+            const suffix = wildcard.replace('https://*.', '.');
+            if (origin.startsWith('https://') && origin.endsWith(suffix)) return cb(null, true);
+        }
+        cb(new Error(`CORS blocked: ${origin}`));
+    },
+    credentials: false,
+}));
 app.use(express.json({ limit: '2mb' }));
 
 app.get('/api/health', (_req, res) => {
@@ -38,7 +57,7 @@ app.use((err, _req, res, _next) => {
 
 app.listen(PORT, () => {
     console.log(`🌸 Ask Didi backend listening on http://localhost:${PORT}`);
-    console.log(`   CORS origin: ${ALLOWED_ORIGIN}`);
+    console.log(`   CORS origins: ${ALLOWED_ORIGINS.join(', ')}`);
     if (!process.env.GROQ_API_KEY) {
         console.warn('   ⚠ GROQ_API_KEY missing — chat will use offline fallback.');
     }
